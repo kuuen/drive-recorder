@@ -1,5 +1,5 @@
 
-var motionStopUrl = '' 
+
 
 function init() {
 
@@ -16,11 +16,11 @@ function init() {
 
       $("#frameScreen").attr("src", data.screenurl);
 
-      motionStopUrl = data.motionurl + '/0/action/quit'
-
     }
   });
   
   return false;
 }
+
+
 
