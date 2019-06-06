@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+<style type='text/css'>
+    body {font-size: 1.4em;}
+</style>
+<script src="js/index.js"></script>
+<script>
+    window.onload = function() {
+	init();
+    }
+</script>
+</head>
+<body>
+     <br/>
+     <a href='drive/'>映像一覧</a><br/>
+     <a href='mod.html'>映像修正</a><br/>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <h1 class="text-center">status</h1>
+          <button type="button" class="btn btn-default btn-lg pull-right" id="button">Send</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <textarea class="form-control" rows="2" placeholder="Received text is show here" id="result" disabled></textarea>
+        </div>
+      </div>
+    </div>
+
+    <button id="btn-start-recorder" class="btn" disabled  onclick="location.href='cgi-bin/nph-start.py'">RecorderStart</button>
+    <button id="btn-stop-recorder" class="btn" disabled  onclick="location.href='cgi-bin/nph-stop.py'">RecorderStop</button>
+    <button id="btn-start-motion" class="btn" disabled onclick="location.href='cgi-bin/nph-start-motion.py'">MotionStart</button>
+    <button id="btn-stop-motion" class="btn" disabled >MotionStop</button>
+
+    <br/><br/>
+    <button id="btn-motion-screen" class="btn" disabled onclick="location.href='motion.html'" >MotionMonitor</button>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/index.js"></script>    
+
+</body>
+</html>
