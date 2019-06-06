@@ -1,0 +1,11 @@
+[Unit]
+Description=Start Drive Reorder
+After=local-fs.target
+
+[Service]
+ExecStart=/home/pi/work/DriveRecoder/service/drive_recorder.sh
+Restart = always
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
