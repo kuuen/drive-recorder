@@ -45,8 +45,6 @@ $('#btn-camera-top').click(function(){
       alert("読み込み失敗");
   });
 
-;
-
 })
 
 $('#btn-camera-bottom').click(function(){
@@ -56,16 +54,15 @@ $('#btn-camera-bottom').click(function(){
     type: 'POST',
     url: 'cgi-bin/motion-camera-move.py',
     contentType: 'application/json',
-    data: json,
-    // successは非推奨にっていたり、thenを使えとかアローにしろとか時代が変わっている
-    // jqueryはv1.11.3を使用している
-    success: function(data) {
-      console.log(data);
-      console.log(data.result);
-
-      $("#frameScreen").attr("src", data.screenurl);
-
-    }
+    data: json
+  }).then(
+    // 1つめは通信成功時のコールバック
+    function (data) {
+      $("#results").append(data);
+    },
+    // 2つめは通信失敗時のコールバック
+    function () {
+      alert("読み込み失敗");
   });
 })
 

@@ -15,24 +15,28 @@ PIN_LEFT_IN1 = 17
 PIN_LEFT_IN2 = 27
 
 
-def move(pin1, pin2, pin1i, pin2i, moveTime = 0.2) :
+def moveCamera(p1, p2, p1i, p2i, moveTime = 0.2) :
   """
   GPIO操作
   pin1,pin2 はGPIOの番号を指定、第二、三引数は GPIO.OUT,GPIO.LOWを指定
   moveTimeは作動時間デフォルト0.2秒
   """
   GPIO.setmode(GPIO.BCM)
+  GPIO.setup(p1, GPIO.OUT)
+  GPIO.setup(p2, GPIO.OUT)
 
-  # 第二引数 GPIO.OUT か GPIO.LOW
-'''
-  GPIO.setup(pin1, GPIO.OUT)
-  GPIO.setup(pin2, GPIO.OUT)
+  # 第二引数 GPIO.HIGH か GPIO.LOW
+
+  GPIO.output(p1, p1i)
+  GPIO.output(p2, p2i)
+
   time.sleep(moveTime)
-  GPIO.output(pin1,GPIO.LOW)
-  GPIO.output(pin1,GPIO.LOW)
+
+  GPIO.output(p1, GPIO.LOW)
+  GPIO.output(p2, GPIO.LOW)
 
   GPIO.cleanup()
-'''
+
 
 def responce(rst) :
   """
@@ -60,10 +64,35 @@ data = sys.stdin.read()
 params = json.loads(data)
 move = int(params['move'])
 
-# 値チェック
-if move > 1 and move > 4:
+pin1 = 0
+pin2 = 0
+pin1i = GPIO.LOW
+pin2i = GPIO.LOW
+
+if move == 1 :
+  pin1 = PIN_TOP_IN1
+  pin2 = PIN_TOP_IN2
+  pin1i = GPIO.HIGH
+  pin2i = GPIO.LOW
+elif move == 2 :
+  pin1 = PIN_TOP_IN1
+  pin2 = PIN_TOP_IN2
+  pin1i = GPIO.LOW
+  pin2i = GPIO.HIGH
+elif move == 3 :
+  pin1 = PIN_LEFT_IN1
+  pin2 = PIN_LEFT_IN2
+  pin1i = GPIO.HIGH
+  pin2i = GPIO.LOW
+elif move == 4 :
+  pin1 = PIN_LEFT_IN1
+  pin2 = PIN_LEFT_IN2
+  pin1i = GPIO.LOW
+  pin2i = GPIO.HIGH
+else:
   responce('ng:param error')
 
+moveCamera(pin1, pin2, pin1i, pin2i)
 
 responce('ok')
 
