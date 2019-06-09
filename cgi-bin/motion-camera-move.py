@@ -9,13 +9,13 @@ import multrunchk
 import RPi.GPIO as GPIO
 import time
 
-PIN_TOP_IN1 = 22
-PIN_TOP_IN2 = 23
-PIN_LEFT_IN1 = 17
-PIN_LEFT_IN2 = 27
+PIN_TOP_IN1 = 17 
+PIN_TOP_IN2 = 27
+PIN_LEFT_IN1 = 22
+PIN_LEFT_IN2 = 23
 
 
-def moveCamera(p1, p2, p1i, p2i, moveTime = 0.2) :
+def moveCamera(p1, p2, p1i, p2i, mt = 0.2) :
   """
   GPIO操作
   pin1,pin2 はGPIOの番号を指定、第二、三引数は GPIO.OUT,GPIO.LOWを指定
@@ -30,7 +30,7 @@ def moveCamera(p1, p2, p1i, p2i, moveTime = 0.2) :
   GPIO.output(p1, p1i)
   GPIO.output(p2, p2i)
 
-  time.sleep(moveTime)
+  time.sleep(mt)
 
   GPIO.output(p1, GPIO.LOW)
   GPIO.output(p2, GPIO.LOW)
@@ -56,7 +56,7 @@ def responce(rst) :
 
 
 # 多重起動チェック
-if multrunchk.chekMultipleRun('nph-camera-move.py', '') == False:
+if multrunchk.chekMultipleRun('motion-camera-move.py', '') == False:
   responce('ng:作動中')
 
 # 値存在チェックは本来は必要である。そのまま起動するとここで待ちとなる
@@ -68,17 +68,20 @@ pin1 = 0
 pin2 = 0
 pin1i = GPIO.LOW
 pin2i = GPIO.LOW
+moveTime = 0.2
 
 if move == 1 :
   pin1 = PIN_TOP_IN1
   pin2 = PIN_TOP_IN2
   pin1i = GPIO.HIGH
   pin2i = GPIO.LOW
+  moveTime = 0.1
 elif move == 2 :
   pin1 = PIN_TOP_IN1
   pin2 = PIN_TOP_IN2
   pin1i = GPIO.LOW
   pin2i = GPIO.HIGH
+  moveTime = 0.1
 elif move == 3 :
   pin1 = PIN_LEFT_IN1
   pin2 = PIN_LEFT_IN2
@@ -92,7 +95,7 @@ elif move == 4 :
 else:
   responce('ng:param error')
 
-moveCamera(pin1, pin2, pin1i, pin2i)
+moveCamera(pin1, pin2, pin1i, pin2i, moveTime)
 
 responce('ok')
 
