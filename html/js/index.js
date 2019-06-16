@@ -45,6 +45,19 @@ function init() {
     }
   });
   
+
   return false;
 }
+
+$('#btn-shutdwon').click(function(){
+  if(confirm('システム停止しますか？')){
+    location.href = 'cgi-bin/nph-sys-shutdown.py';
+  }
+})
+
+$('#btn-reboot').click(function(){
+  if(confirm('システム再起動しますか？')){
+    location.href = 'cgi-bin/nph-sys-reboot.py';
+  }
+})
 
