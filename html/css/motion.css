@@ -1,14 +1,19 @@
 
+.buttonex {
+  font-size:40px;
+}
 
 .cross-layout {
   display: grid;
-  grid-template-columns: 30px 30px 30px;
-  grid-template-rows: 30px 30px 30px;
+  grid-template-columns: 70px 70px 70px;
+  grid-template-rows: 70px 70px 70px;
+  margin-left:70px;
 }
 
 .cross-layout .cross-layout-position-top {
   grid-row: 1 / 2;
   grid-column: 2 / 3;
+  
 }
 
 .cross-layout .cross-layout-position-left {
@@ -35,9 +40,10 @@
   border-style: none;
   cursor: pointer;
   padding: 0px 0px;
-  width: 30px;
-  height: 30px;
+  width: 70px;
+  height: 70px;
   background-color: rgba(66, 86, 123, 0.5);
+  font-size:40px;
 }
 
 .left-mark {

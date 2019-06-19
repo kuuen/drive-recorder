@@ -5,7 +5,14 @@
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap-theme.min.css">
 <style type='text/css'>
-    body {font-size: 1.4em;}
+/*    body {font-size: 14.0em;} */
+    .buttonex {
+        font-size:40px
+    }
+    .texteriaex {
+        font-size:40px
+    }
+
 </style>
 <script src="js/index.js"></script>
 <script>
@@ -14,34 +21,34 @@
     }
 </script>
 </head>
-<body>
+<body >
      <br/>
-     <a href='drive/'>映像一覧</a><br/>
-     <a href='mod.html'>映像修正</a><br/>
+     <h1><a href='drive/'>映像一覧</a><br/></h1>
+     <h1><a href='mod.html'>映像修正</a><br/></h1>
 
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-12 col-md-12">
+        <div >
           <h1 class="text-center">status</h1>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-12 col-md-12">
-          <textarea class="form-control" rows="2" placeholder="Received text is show here" id="result" disabled></textarea>
+          <textarea class="form-control texteriaex" rows="2" placeholder="Received text is show here" id="result" disabled></textarea>
         </div>
       </div>
     </div>
 
-    <button id="btn-start-recorder" class="btn" disabled  onclick="location.href='cgi-bin/nph-start.py'">録画開始</button>
-    <button id="btn-stop-recorder" class="btn" disabled  onclick="location.href='cgi-bin/nph-stop.py'">録画停止</button>
-    <button id="btn-start-motion" class="btn" disabled onclick="location.href='cgi-bin/nph-start-motion.py'">MotionStart</button>
-    <button id="btn-stop-motion" class="btn" disabled >MotionStop</button>
+    <button id="btn-start-recorder" class="btn buttonex" disabled  onclick="location.href='cgi-bin/nph-start.py'">録画開始</button>
+    <button id="btn-stop-recorder" class="btn buttonex" disabled  onclick="location.href='cgi-bin/nph-stop.py'">録画停止</button>
+    <button id="btn-start-motion" class="btn buttonex" disabled onclick="location.href='cgi-bin/nph-start-motion.py'">MotionStart</button>
+    <button id="btn-stop-motion" class="btn buttonex" disabled >MotionStop</button>
 
     <br/><br/>
-    <button id="btn-motion-screen" class="btn" disabled onclick="location.href='motion.html'" >MotionMonitor</button>
-    <br/><br/><br/>
-    <button id="btn-shutdwon" class="btn" style="background-color:#FF0000;color: #000000;">システム停止</button>
-    <button id="btn-reboot" class="btn" style="background-color:#FF0000;color: #000000;">システム再起動</button>
+    <button id="btn-motion-screen" class="btn buttonex" disabled onclick="location.href='motion.html'" >MotionMonitor</button>
+    <br/><br/>
+    <button id="btn-shutdwon" class="btn buttonex" style="background-color:#FF0000;color: #000000;">システム停止</button>
+    <button id="btn-reboot" class="btn buttonex" style="background-color:#FF0000;color: #000000;">システム再起動</button>
 
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
