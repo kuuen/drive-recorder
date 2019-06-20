@@ -12,7 +12,7 @@ def oldmotionDel():
   dataDir = '/media/data/driveRecoder/*.avi'
   files = glob.glob(dataDir)
 
-  if len(files) <= 5:
+  if len(files) < 5:
     return
 
   # ファイル名、サイズ、日付からなるリストを作る
@@ -27,7 +27,7 @@ def oldmotionDel():
 
   i = len(files) - 5
   for file in lst:
-    if i < 1 :
+    if i < 0 :
       break;
     os.remove(file[0])
     i -= 1 
