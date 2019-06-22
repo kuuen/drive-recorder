@@ -9,7 +9,7 @@ import multrunchk
 import RPi.GPIO as GPIO
 import time
 
-PIN_TOP_IN1 = 17 
+PIN_TOP_IN1 = 17
 PIN_TOP_IN2 = 27
 PIN_LEFT_IN1 = 22
 PIN_LEFT_IN2 = 23
@@ -73,15 +73,15 @@ moveTime = 0.2
 if move == 1 :
   pin1 = PIN_TOP_IN1
   pin2 = PIN_TOP_IN2
-  pin1i = GPIO.HIGH
-  pin2i = GPIO.LOW
-  moveTime = 0.1
+  pin1i = GPIO.LOW
+  pin2i = GPIO.HIGH
+  moveTime = 0.2
 elif move == 2 :
   pin1 = PIN_TOP_IN1
   pin2 = PIN_TOP_IN2
-  pin1i = GPIO.LOW
-  pin2i = GPIO.HIGH
-  moveTime = 0.1
+  pin1i = GPIO.HIGH
+  pin2i = GPIO.LOW
+  moveTime = 0.2
 elif move == 3 :
   pin1 = PIN_LEFT_IN1
   pin2 = PIN_LEFT_IN2
