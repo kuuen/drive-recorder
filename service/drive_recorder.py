@@ -46,9 +46,17 @@ cmd += "-video_size 720x480 "
 
 cmd += "-i /dev/video0 -c:v h264_omx  -metadata:s:v:0 rotate=0 -b:v 6500k -c:a aac -b:a 32k -f matroska "
 
-cmd += "-vf drawtext=\"fontfile=/usr/share/fonts/truetype/freefont/FreeSerif.ttf:fontcolor=#FFFFFF:fontsize=30:text='%{localtime}'\" "
-cmd += "-t 00:15:00 -loglevel quiet "
+cmd += '-vf drawtext=fontfile="/usr/share/fonts/truetype/freefont/FreeSerif.ttf":fontcolor=#FFFFFF:fontsize=30:x=350:y=450:text=%{localtime} '
+cmd += "-t 00:15:00 "
+cmd += "-loglevel quiet "
 cmd += fname.format(dataDir, new_filename)
 
-print('test')
+print(cmd)
 subprocess.call(cmd.split())
+
+#rst = subprocess.Popen(cmd.split(), stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
+
+#print(cmd.split())
+#for rs in rst.stdout:
+#    print(rs)
+
