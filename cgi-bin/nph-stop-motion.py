@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-
 import os
 import subprocess
 import multrunchk
 import urllib.request
 import time
 
+# motionのipアドレス取得
 url = ''
 if 'HTTP_HOST' in os.environ:
   url = 'http://' + os.environ['HTTP_HOST'] + ':8080/0/action/quit'
