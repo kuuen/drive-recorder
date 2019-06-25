@@ -1,4 +1,6 @@
 # drive-recorder
+
+## Description 説明  
 2011年製webカメラを車載カメラとして使用するプロジェクト  
 Project to use web camera released in 2011 as in-vehicle camera
 
@@ -18,15 +20,21 @@ If you turn off the power, the data being recorded will be broken,
 Added the ability to repair to some extent
 
 
-## Description 説明
-
 ## Requirement
-・ソフト software
+・ソフト software  
+Raspbian GNU/Linux 9.4  
 
-・ハード hardware 
+・ハード hardware  
+Raspberry Pi Zero W  
+BSWHD05HSBK web Cmera  
+TA7291P モータドライバ Motor driver  
+ストリップボード Strip board  
+半可変抵抗器 Semi-variable resistor  
+タミヤのギアボックス2つ Tamiya gearboxes x2  
+USBケーブルモータ(ドライバ電源用 加工が必要) USB cable For motor driver power supply  
+
 
 ## Install
+・ソフト software  
 
-・ソフト software
-
-・ハード hardware
+・ハード hardware  
