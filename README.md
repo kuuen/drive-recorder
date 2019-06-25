@@ -40,6 +40,18 @@ USBケーブルモータ(ドライバ電源用 加工が必要) USB cable For mo
 
 
 ## Install
-・ソフト software  
+・ソフト software
+visudo  
+
+Apache2  
+
+bt-pan 
+
+motion  
+
+本ソースコード Source code  
+
+service  
 
 ・ハード hardware  
+TA7291P  
