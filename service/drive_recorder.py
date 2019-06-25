@@ -44,7 +44,7 @@ if (current_numbers):
         # 保存先のディスクは以下、dataDirとコーディングが二度手間ではある気がするが実装はこれで
         if pr.split()[0] == b'/dev/mmcblk0p8':
             #print(pr)
-            # こんな感じの結果になるので後ろから5番目の値から使用率を取得
+            # こんな感じの結果になるので5番目の値から使用率を取得
             # /dev/mmcblk0p8    20G  2.6G   18G   13% /media/data
             disk_space = int(pr.split()[4][:-1])
             break
