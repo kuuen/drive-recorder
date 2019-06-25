@@ -9,6 +9,7 @@ import multrunchk
 import RPi.GPIO as GPIO
 import time
 
+# GPIOの番号Positionの番号ではない
 PIN_TOP_IN1 = 17
 PIN_TOP_IN2 = 27
 PIN_LEFT_IN1 = 22
@@ -21,7 +22,11 @@ def moveCamera(p1, p2, p1i, p2i, mt = 0.2) :
   pin1,pin2 はGPIOの番号を指定、第二、三引数は GPIO.OUT,GPIO.LOWを指定
   moveTimeは作動時間デフォルト0.2秒
   """
+  
+  # 初期化　GPIOの番号指定で操作する
   GPIO.setmode(GPIO.BCM)
+  
+  # 各ピン出力で使用
   GPIO.setup(p1, GPIO.OUT)
   GPIO.setup(p2, GPIO.OUT)
 
