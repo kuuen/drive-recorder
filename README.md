@@ -23,6 +23,11 @@ Added the ability to repair to some extent
 ## Requirement
 ・ソフト software  
 Raspbian GNU/Linux 9.4  
+python3  
+Aache2  
+bt-pan  
+ffmpeg version 3.2.12-1  
+motion4.0 バージョンは多分4  
 
 ・ハード hardware  
 Raspberry Pi Zero W  
