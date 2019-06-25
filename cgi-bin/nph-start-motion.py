@@ -42,7 +42,7 @@ def oldmotionDel():
     os.remove(file[0])
     i -= 1 
 
-# motionのurl取得　同じことを他でもやってるから共通化したほうがいいか？
+# motionのurl取得　同じことを他でもやってるから共通化したほうがいいか？そもそもこの値は使用していない。いつか削除する
 url = ''
 if 'HTTP_HOST' in os.environ:
   url = os.environ['HTTP_HOST']
