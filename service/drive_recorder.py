@@ -15,7 +15,7 @@ for file_name in all_files:
     # ファイル名の数値部分を取り出す 12345.mp4 →　12345
     s = file_name[:-4]
 
-    # 取り出した値が正しいか？ motionのファイル名は00-yyyyMMddHHmmss.aviの形式なので
+    # 取り出した値が正しいか？ motionのファイルは削除対象外。00-yyyyMMddHHmmss.aviの形式
     if (s.isdecimal()):
         current_numbers.append(int(s))
         
