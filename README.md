@@ -1,9 +1,8 @@
 # drive-recorder
-2011年製webカメラを車載カメラとして使用するプロジェクト
-
+2011年製webカメラを車載カメラとして使用するプロジェクト 
 Project to use web camera released in 2011 as in-vehicle camera
 
-衝動買いしたが使用していないパーツで実装したので性能はあまり良くない
+衝動買いしたが使用していないパーツで実装したので性能はあまり良くない 
 There is no performance because it was Impulse buying by parts purchased dynamically and not used
 
 電源ON後に自動的に録画を開始。LAN環境にてブラウザから録画内容を取得、カメラの向きをブラウザから操作も可能
