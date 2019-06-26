@@ -45,10 +45,9 @@ visudo
 管理者権限を使用するコマンドの許可を行う  
 Permit commands that use administrator privileges  
 $ sudo visudo  
-
 以下を追記  
----
 Add the following  
+---
 www-data ALL=(ALL) NOPASSWD: /bin/systemctl stop drive_recorder.service
 www-data ALL=(ALL) NOPASSWD: /bin/systemctl start drive_recorder.service
 www-data ALL=(ALL) NOPASSWD: /usr/bin/motion -b
@@ -59,10 +58,12 @@ www-data ALL=(ALL) NOPASSWD: /sbin/reboot
 Apache2  
 /etc/apache2/sites-available/less 000-default.conf  
 有効にする  
-To enable  mods-available/mime.conf
+To enable  
+---
 Include conf-available/serve-cgi-bin.conf  
- 
-mods-available/mime.conf
+---
+
+/etc/apache2/mods-available/mime.conf
 
 AddHandler cgi-script .cgi .py
 
