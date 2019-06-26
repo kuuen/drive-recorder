@@ -193,6 +193,7 @@ Pairing successful
 bt-panを使用。これを使用すればもしかしたら上記の設定は必要ないかも  
 Use bt-pan. If you use this you may not need the above settings  
 ~~~
+$ cd /home/pi/work/bt-pan/
 $ wget https://raw.githubusercontent.com/mk-fg/fgtk/master/bt-pan
 $ chmod +x bt-pan
 ~~~
