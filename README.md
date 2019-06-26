@@ -93,7 +93,7 @@ cgiを動かすディレクトリを指定 Specify the directory to run cgi
 $ sudo apt-get install motion
 ~~~
 設定ファイルの修正 Modify configuration file  
-詳しく把握していない。とりあえず動いている I do not know in detail but　It is moving now
+詳しく把握していない。とりあえず動いている I do not know in detail but　It is moving now  
 リポジトリのファイルを参照 Browse files in repository  
 /etc/motion/motion.conf  
 
