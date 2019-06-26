@@ -56,7 +56,7 @@ www-data ALL=(ALL) NOPASSWD: /sbin/reboot
 
 ### 動画保存領域確保
 別マシンでラズベリーパイのsdカードをGparted等でfat32の領域を作成する Create a fat32 area with Gparted etc.  
-Windowsでの確認する場合はfatの領域が先頭になっていないと読めないらしいので注意  
+Windowsで確認する場合はfatの領域が先頭になっていないと読めないらしいので注意  
 In case of confirmation with Windows, it seems that it can not be read unless the area of fat32 is at the beginning  
 
 作成したデバイス名を確認 Confirm the created device name  
@@ -149,12 +149,87 @@ $ sudo systemctl enable drive_recorder
 Start the service and check whether it is normal by referring to syslog, systemctl status etc.
 
 ### bt-pan 
+OS起動時にBlueToothテザリングで親機に接続するように設定。再接続機能は持ってない  
+Set to connect to the parent device with BlueTooth tethering at OS startup. I do not have the reconnection function  
+ペアリングする  
+親機のBlutToothテザリング機能をONにする。記述ははXperia X Performanceで行ったもの  
+Turn on the BlutTooth tethering function of the parent machine. Description is made by Xperia X Performance  
+
+親機の設定 Host setting  
+設定-ネットワークとインターネット-テザリング-BluetoothテザリングをOn  
+Menu  
+Settings-Network and Internet-Tethering-Bluetooth Tethering On  
+
+ラズベリーパイ側で親機のmacアドレスを確認 Confirm the master's mac address on the raspberry pie side  
+~~~
+pi@raspi-zero2:~ $ hcitool scan
+Scanning ...
+	FF:FF:FF:FF:FF:FA	Xperia X Performance
+pi@raspi-zero2:~ $ bluetoothctl
+[bluetooth]# scan on
+No default controller available
+[bluetooth]# exit
+~~~
+ペアリング設定 Pairing setting  
+確認した親機のmacアドレスを指定する  Specify the confirmed mac address of the parent device
+~~~
+$ sudo bluetoothctl
+[NEW] Controller B8:27:EB:6A:70:D1 raspi-zero2 [default]
+[bluetooth]# scan on
+Discovery started
+[CHG] Controller B8:27:EB:6A:70:D1 Discovering: yes
+[NEW] Device FF:FF:FF:FF:FF:FA Xperia X Performance
+[bluetooth]# pair FF:FF:FF:FF:FF:FA
+Attempting to pair with FF:FF:FF:FF:FF:FA
+...
+...
+[CHG] Device 58:48:22:9F:2D:55 ServicesResolved: yes
+[CHG] Device 58:48:22:9F:2D:55 Paired: yes
+Pairing successful
+
+[bluetooth]# exit
+~~~
+
+bt-panを使用。これを使用すればもしかしたら上記の設定は必要ないかも  
+Use bt-pan. If you use this you may not need the above settings  
+~~~
+$ wget https://raw.githubusercontent.com/mk-fg/fgtk/master/bt-pan
+$ chmod +x bt-pan
+~~~
+OS起動時に接続するように、serviceを作成 Create a service to connect at OS startup  
+(これもgitに上げるか？)
+
+/home/pi/work/bt-pan/bt-pan-client-start.sh
+~~~
+#!/bin/sh
+
+sudo /home/pi/work/bt-pan/bt-pan client FF:FF:FF:FF:FF:FA
+~~~
+
+/home/pi/work/bt-pan/bt-pan-client-start.service
+~~~
+[Unit]
+Description=RFCOMM service
+After=bluetooth.service
+Requires=bluetooth.service
+
+[Service]
+ExecStart=/home/pi/work/bt-pan/bt-pan-client-start.sh
+#ExecStop=/home/pi/work/bt-pan/bt-pan-client-end.sh
+
+[Install]
+WantedBy=multi-user.target
+~~~
 
 シンボリックリンクで貼り付ける Paste with symbolic link
 ~~~
 $ sudo ln -s /home/pi/work/bt-pan/bt-pan-client-start.service /etc/systemd/system/
 ~~~
 
+serviceを有効にする Enable service   
+~~~
+$ sudo systemctl enable bt-pan-client-start
+~~~
 
 ・ハード hardware  
 TA7291P  
