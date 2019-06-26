@@ -39,13 +39,14 @@ TA7291P モータドライバ Motor driver
 USBケーブルモータ(ドライバ電源用 加工が必要) USB cable For motor driver power supply  
 
 
-## Install
+## Install  
 ・ソフト software
 visudo  
 管理者権限を使用するコマンドの許可を行う  
 Permit commands that use administrator privileges  
 $ sudo visudo  
-以下を追記
+
+以下を追記  
 ---
 Add the following  
 www-data ALL=(ALL) NOPASSWD: /bin/systemctl stop drive_recorder.service
