@@ -42,31 +42,46 @@ USBケーブルモータ(ドライバ電源用 加工が必要) USB cable For mo
 ## Install  
 ・ソフト software
 visudo  
-管理者権限を使用するコマンドの許可を行う  
-Permit commands that use administrator privileges  
+管理者権限を使用するコマンドの許可を行う Permit commands that use administrator privileges  
 $ sudo visudo  
-以下を追記  
-Add the following  
----
+~~~
+# 以下を追記 Add the following
 www-data ALL=(ALL) NOPASSWD: /bin/systemctl stop drive_recorder.service
 www-data ALL=(ALL) NOPASSWD: /bin/systemctl start drive_recorder.service
 www-data ALL=(ALL) NOPASSWD: /usr/bin/motion -b
 www-data ALL=(ALL) NOPASSWD: /sbin/shutdown
 www-data ALL=(ALL) NOPASSWD: /sbin/reboot
----
+~~~
 
 Apache2  
 /etc/apache2/sites-available/less 000-default.conf  
-有効にする  
-To enable  
----
-Include conf-available/serve-cgi-bin.conf  
----
+有効にする To enable  
+~~~
+# Include conf-available/serve-cgi-bin.conf
+Include conf-available/serve-cgi-bin.conf
+~~~
 
-/etc/apache2/mods-available/mime.conf
-
+/etc/apache2/mods-available/mime.conf  
+.piを追記する Append
+~~~
+# AddHandler cgi-script .cgi
 AddHandler cgi-script .cgi .py
-
+~~~
+/etc/apache2/conf-available/serve-cgi-bin.conf
+cgiを動かすディレクトリを指定 Specify the directory to run cgi
+~~~
+        <IfDefine ENABLE_USR_LIB_CGI_BIN>
+#               ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+                ScriptAlias /cgi-bin/ /home/pi/work/DriveRecoder/cgi-bin/
+#               <Directory "/usr/lib/cgi-bin">
+                <Directory "/home/pi/work/DriveRecoder/cgi-bin">
+                        AllowOverride None
+                        Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+                        Require all granted
+                        SetEnv PYTHONIOENCODING utf-8
+                </Directory>
+~~~
+編集後にApache2を再起動 Restart Apache 2  
 
 bt-pan 
 
