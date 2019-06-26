@@ -41,7 +41,7 @@ USBケーブルモータ(ドライバ電源用 加工が必要) USB cable For mo
 
 ## Install  
 ・ソフト software
-visudo  
+### visudo  
 管理者権限を使用するコマンドの許可を行う Permit commands that use administrator privileges  
 $ sudo visudo  
 ~~~
@@ -53,7 +53,10 @@ www-data ALL=(ALL) NOPASSWD: /sbin/shutdown
 www-data ALL=(ALL) NOPASSWD: /sbin/reboot
 ~~~
 
-Apache2  
+### Apache2
+~~~
+$ sudo apt-get install apache2
+~~~
 /etc/apache2/sites-available/less 000-default.conf  
 有効にする To enable  
 ~~~
@@ -84,9 +87,16 @@ cgiを動かすディレクトリを指定 Specify the directory to run cgi
 
 編集後にApache2を再起動 Restart Apache 2  
 
-motion  
+### motion
+~~~
+$ sudo apt-get install motion
+~~~
+設定ファイルの修正 Modify configuration file  
+詳しく把握していない。とりあえず動いている I do not know in detail but　It is moving now
+/etc/motion/motion.conf  
 
-本ソースコード Source code  
+
+### 本ソースコード Source code  
 ソースコードを/home/pi/work/DriveRecoder/に設置する想定  
 Assume that source code is installed in /home/pi/work/DriveRecoder/  
 
@@ -97,9 +107,9 @@ sudo ln -s /home/pi/work/DriveRecoder/html/ /var/www/
 ~~~
 
 
-service  
+### service  
 
-bt-pan 
+### bt-pan 
 
 ・ハード hardware  
 TA7291P  
