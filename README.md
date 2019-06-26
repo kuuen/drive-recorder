@@ -40,6 +40,7 @@ USBケーブルモータ(ドライバ電源用 加工が必要) USB cable For mo
 
 
 ## Install  
+インストールや設定 Installation and configuration  
 ・ソフト software
 ### visudo  
 管理者権限を使用するコマンドの許可を行う Permit commands that use administrator privileges  
@@ -93,8 +94,8 @@ $ sudo apt-get install motion
 ~~~
 設定ファイルの修正 Modify configuration file  
 詳しく把握していない。とりあえず動いている I do not know in detail but　It is moving now
+リポジトリのファイルを参照 Browse files in repository  
 /etc/motion/motion.conf  
-
 
 ### 本ソースコード Source code  
 ソースコードを/home/pi/work/DriveRecoder/に設置する想定  
