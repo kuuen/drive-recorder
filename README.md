@@ -74,6 +74,7 @@ Device         Boot    Start      End  Sectors  Size Id Type
 
 自動マウントするように編集 Edit to automount  
 /etc/fstab  
+追記する Append  
 ~~~
 /dev/mmcblk0p8  /media/data    vfat    auto,rw,user,users,exec,noatime,uid=1000,gid=1000,umask=000    0    0
 ~~~
@@ -134,10 +135,26 @@ sudo ln -s /home/pi/work/DriveRecoder/html/ /var/www/
 ~~~
 sudo ln -s /media/data/driveRecoder/ /home/pi/work/DriveRecoder/html/drive/
 ~~~
+serviceを登録 Register service   
+シンボリックリンクで貼り付ける Paste with symbolic link  
+~~~
+$ sudo ln -s /home/pi/work/DriveRecoder/service/drive_recorder.service /etc/systemd/system/
+~~~
 
-### service  
+serviceを有効にする Enable service   
+~~~
+$ sudo systemctl enable drive_recorder
+~~~
+サービスを起動してsyslogやsystemctl status 等を参照して正常かを確認する  
+Start the service and check whether it is normal by referring to syslog, systemctl status etc.
 
 ### bt-pan 
+
+シンボリックリンクで貼り付ける Paste with symbolic link
+~~~
+$ sudo ln -s /home/pi/work/bt-pan/bt-pan-client-start.service /etc/systemd/system/
+~~~
+
 
 ・ハード hardware  
 TA7291P  
