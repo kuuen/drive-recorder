@@ -81,15 +81,25 @@ cgiを動かすディレクトリを指定 Specify the directory to run cgi
                         SetEnv PYTHONIOENCODING utf-8
                 </Directory>
 ~~~
-編集後にApache2を再起動 Restart Apache 2  
 
-bt-pan 
+編集後にApache2を再起動 Restart Apache 2  
 
 motion  
 
 本ソースコード Source code  
+ソースコードを/home/pi/work/DriveRecoder/に設置する想定  
+Assume that source code is installed in /home/pi/work/DriveRecoder/  
+
+apache2のドキュメントルートにシンボリックリンクを貼る  
+Paste symbolic link to document root of apache2  
+~~~
+sudo ln -s /home/pi/work/DriveRecoder/html/ /var/www/
+~~~
+
 
 service  
+
+bt-pan 
 
 ・ハード hardware  
 TA7291P  
