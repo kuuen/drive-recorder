@@ -54,6 +54,30 @@ www-data ALL=(ALL) NOPASSWD: /sbin/shutdown
 www-data ALL=(ALL) NOPASSWD: /sbin/reboot
 ~~~
 
+### 動画保存領域確保
+別マシンでラズベリーパイのsdカードをGparted等でfat32の領域を作成する Create a fat32 area with Gparted etc.  
+Windowsでの確認する場合はfatの領域が先頭になっていないと読めないらしいので注意  
+In case of confirmation with Windows, it seems that it can not be read unless the area of fat32 is at the beginning  
+
+作成したデバイス名を確認 Confirm the created device name  
+~~~
+$ sudo fdisk -l
+...
+Device         Boot    Start      End  Sectors  Size Id Type
+/dev/mmcblk0p1          8192  3294921  3286730  1.6G  e W95 FAT16 (LBA)
+/dev/mmcblk0p2       3294922 60637183 57342262 27.4G  5 Extended
+/dev/mmcblk0p5       3301376  3366909    65534   32M 83 Linux
+/dev/mmcblk0p6       3366912  3508223   141312   69M  c W95 FAT32 (LBA)
+/dev/mmcblk0p7       3514368 19677183 16162816  7.7G 83 Linux
+/dev/mmcblk0p8      19679232 60637183 40957952 19.5G  b W95 FAT32  ←　★これ
+~~~
+
+自動マウントするように編集 Edit to automount  
+/etc/fstab  
+~~~
+/dev/mmcblk0p8  /media/data    vfat    auto,rw,user,users,exec,noatime,uid=1000,gid=1000,umask=000    0    0
+~~~
+
 ### Apache2
 ~~~
 $ sudo apt-get install apache2
@@ -106,7 +130,10 @@ Paste symbolic link to document root of apache2
 ~~~
 sudo ln -s /home/pi/work/DriveRecoder/html/ /var/www/
 ~~~
-
+動画保存領域を参照する Refer to movie storage area  
+~~~
+sudo ln -s /media/data/driveRecoder/ /home/pi/work/DriveRecoder/html/drive/
+~~~
 
 ### service  
 
