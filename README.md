@@ -46,14 +46,14 @@ visudo
 Permit commands that use administrator privileges  
 $ sudo visudo  
 以下を追記
-\\\
+---
 Add the following  
 www-data ALL=(ALL) NOPASSWD: /bin/systemctl stop drive_recorder.service
 www-data ALL=(ALL) NOPASSWD: /bin/systemctl start drive_recorder.service
 www-data ALL=(ALL) NOPASSWD: /usr/bin/motion -b
 www-data ALL=(ALL) NOPASSWD: /sbin/shutdown
 www-data ALL=(ALL) NOPASSWD: /sbin/reboot
-\\\
+---
 
 Apache2  
 /etc/apache2/sites-available/less 000-default.conf  
