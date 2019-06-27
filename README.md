@@ -234,3 +234,17 @@ $ sudo systemctl enable bt-pan-client-start
 
 ・ハード hardware  
 TA7291P  
+[TA7291Pの概要](https://toshiba.semicon-storage.com/jp/product/linear/motordriver/detail.TA7291P.html)  
+モータドライバは2つ使用して２つのギアボックスを制御  
+Two motor drivers control two gearboxes  
+ギアボックスはカメラを上下、左右に向きを変えるように固定する  
+The gearbox will lock the camera up and down, turn it sideways  
+モータドライバのPIN5,6をそれぞれGPIO17，27と22，23と接続(17,27は上下、22と23は左右の動き)  
+Connect PINs 5 and 6 of the motor driver to GPIO 17, 27 and 22 and 23, respectively (17 and 27 move up and down, 22 and 23 move left and right)  
+モータドライバのPIN7はラスベリーパイの3.3ｖに接続  
+Motor driver PIN7 connected to 3.3v of Rathberry pi  
+モータドライバのPIN8はUSBから5.5vを受ける  
+モータドライバのPIN4はUSBから5.5vから半可変抵抗器で3.0vくらいに調整する  
+モータドライバのPIN1はラズベリーパイ、USBのGNDに接続
+
+
