@@ -20,6 +20,22 @@ If you turn off the power, the data being recorded will be broken,
 Added the ability to repair to some extent
 
 ## Usage
+ブラウザでアクセス。スマホのBlueToothテザリングではIPは192.168.44.122固定となる。変更方法は不明  
+IP is fixed at 192.168.44.122 in BlueTooth tethering of the smartphone. Unknown change method  
+
+映像一覧はOptions FollowSymLinks を使用  
+Video list uses Options FollowSymLinks  
+
+映像修正 破損した動画ファイルの修復を試みる。やってることはffmpegでコピーしてるだけ  
+Video Fix Attempt to repair corrupted video files. All I do is copy it with ffmpeg  
+
+statusモーションを記録中か実行中かを確認します。両方が同時に実行されることはありません  
+status Check if motion is being recorded or running. Both will never run at the same time  
+
+各機能のON,OFFボタン ON / OFF button of each function  
+
+motion display画面  
+矢印キーでカメラの向きを変更 Change direction of camera with arrow key  
 
 ## Requirement
 ・ソフト software  
@@ -38,24 +54,6 @@ TA7291P モータドライバ Motor driver
 半可変抵抗器 Semi-variable resistor  
 タミヤのギアボックス2つ Tamiya gearboxes x2  
 USBケーブルモータ(ドライバ電源用 加工が必要) USB cable For motor driver power supply  
-
-## Usage
-ブラウザでアクセス。スマホのBlueToothテザリングではIPは192.168.44.122固定となる。変更方法は不明  
-IP is fixed at 192.168.44.122 in BlueTooth tethering of the smartphone. Unknown change method  
-
-映像一覧はOptions FollowSymLinks を使用  
-Video list uses Options FollowSymLinks  
-
-映像修正 破損した動画ファイルの修復を試みる。やってることはffmpegでコピーしてるだけ  
-Video Fix Attempt to repair corrupted video files. All I do is copy it with ffmpeg  
-
-statusモーションを記録中か実行中かを確認します。両方が同時に実行されることはありません  
-status Check if motion is being recorded or running. Both will never run at the same time  
-
-各機能のON,OFFボタン ON / OFF button of each function  
-
-motion display画面  
-矢印キーでカメラの向きを変更 Change direction of camera with arrow key  
 
 ## Install  
 インストールや設定 Installation and configuration  
