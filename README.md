@@ -244,7 +244,12 @@ Connect PINs 5 and 6 of the motor driver to GPIO 17, 27 and 22 and 23, respectiv
 モータドライバのPIN7はラスベリーパイの3.3ｖに接続  
 Motor driver PIN7 connected to 3.3v of Rathberry pi  
 モータドライバのPIN8はUSBから5.5vを受ける  
-モータドライバのPIN4はUSBから5.5vから半可変抵抗器で3.0vくらいに調整する  
-モータドライバのPIN1はラズベリーパイ、USBのGNDに接続
+Motor driver PIN 8 receives 5.5v from USB  
+モータードライバーPIN4は、USB電源の5.5ｖから半可変抵抗器で3.0Vに調整  
+Motor driver PIN4 is adjusted from 5.5v to 3.0v with semi variable resistor from USB  
+モータドライバのPIN1はラズベリーパイ、USBのGNDに接続  
+Motor driver PIN1 connected to raspberry pi, USB GND  
+図にしたほうがわかりやすいか？
+
 
 
