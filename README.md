@@ -19,6 +19,7 @@ If you are not satisfied with the transfer speed, Acquire data directly from the
 If you turn off the power, the data being recorded will be broken,  
 Added the ability to repair to some extent
 
+## Usage
 
 ## Requirement
 ・ソフト software  
@@ -38,6 +39,23 @@ TA7291P モータドライバ Motor driver
 タミヤのギアボックス2つ Tamiya gearboxes x2  
 USBケーブルモータ(ドライバ電源用 加工が必要) USB cable For motor driver power supply  
 
+## Usage
+ブラウザでアクセス。スマホのBlueToothテザリングではIPは192.168.44.122固定となる。変更方法は不明  
+IP is fixed at 192.168.44.122 in BlueTooth tethering of the smartphone. Unknown change method  
+
+映像一覧はOptions FollowSymLinks を使用  
+Video list uses Options FollowSymLinks  
+
+映像修正 破損した動画ファイルの修復を試みる。やってることはffmpegでコピーしてるだけ  
+Video Fix Attempt to repair corrupted video files. All I do is copy it with ffmpeg  
+
+statusモーションを記録中か実行中かを確認します。両方が同時に実行されることはありません  
+status Check if motion is being recorded or running. Both will never run at the same time  
+
+各機能のON,OFFボタン ON / OFF button of each function  
+
+motion display画面  
+矢印キーでカメラの向きを変更 Change direction of camera with arrow key  
 
 ## Install  
 インストールや設定 Installation and configuration  
@@ -149,8 +167,8 @@ $ sudo systemctl enable drive_recorder
 Start the service and check whether it is normal by referring to syslog, systemctl status etc.
 
 ### bt-pan 
-OS起動時にBlueToothテザリングで親機に接続するように設定。再接続機能は持ってない  
-Set to connect to the parent device with BlueTooth tethering at OS startup. I do not have the reconnection function  
+OS起動時にBlueToothテザリングで親機に接続するように設定。以下の設定では再接続機能は持ってない  
+Set to connect to the parent device with BlueTooth tethering at OS startup. The following settings do not have the reconnection function  
 ペアリングする  
 親機のBlutToothテザリング機能をONにする。記述ははXperia X Performanceで行ったもの  
 Turn on the BlutTooth tethering function of the parent machine. Description is made by Xperia X Performance  
@@ -160,7 +178,7 @@ Turn on the BlutTooth tethering function of the parent machine. Description is m
 Menu  
 Settings-Network and Internet-Tethering-Bluetooth Tethering On  
 
-ラズベリーパイ側で親機のmacアドレスを確認 Confirm the master's mac address on the raspberry pie side  
+ラズベリーパイ側で親機のmacアドレスを確認 Confirm the master's mac address on the raspberry pi side  
 ~~~
 pi@raspi-zero2:~ $ hcitool scan
 Scanning ...
@@ -183,8 +201,8 @@ Discovery started
 Attempting to pair with FF:FF:FF:FF:FF:FA
 ...
 ...
-[CHG] Device 58:48:22:9F:2D:55 ServicesResolved: yes
-[CHG] Device 58:48:22:9F:2D:55 Paired: yes
+[CHG] Device FF:FF:FF:FF:FF:FA ServicesResolved: yes
+[CHG] Device FF:FF:FF:FF:FF:FA Paired: yes
 Pairing successful
 
 [bluetooth]# exit
