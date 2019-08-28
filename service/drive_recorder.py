@@ -49,9 +49,10 @@ if (current_numbers):
             disk_space = int(pr.split()[4][:-1])
             break
 
-    # 使用率が70%超えていたら一番古いファイルを削除。motion動画ファイルを追加したことで１ファイルのみ削除だけでは
+    # 使用率が20%超えていたら一番古いファイルを削除。
+    # motion動画ファイルを追加したことで１ファイルのみ削除だけでは
     # 足りなくなったりしないか？30%(7,8GB)と余裕を持たせてあるから満杯にはならないか？フル録画で230MBとなる
-    if (70 < disk_space):
+    if (20 < disk_space):
         subprocess.call("rm {}{}.mp4".format(dataDir, remove_number).split())
 
 # ffmpegのコマンド作成

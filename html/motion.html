@@ -21,14 +21,15 @@
   <br/>
   <h1>motion display</h1>
   <h1>※エラーになったら再読み込み</h1>
-  <div style="margin-bottom:400px;">
+  <div style="float : left;">
+
+  <div style="margin-bottom:20px;">
     <iframe id="frameScreen"  
-      width="350" height="250" lazyload="on" 
-      style="transform:scale(0.55);-o-transform:scale(0.55);-webkit-transform:scale(2.50);-moz-transform:scale(0.55);-ms-transform:scale(0.55);transform-origin:0 0;-o-transform-origin:0 0;-webkit-transform-origin:0 0;-moz-transform-origin:0 0;-ms-transform-origin:0 0;"  >
+      width="650" height="500" lazyload="on" 
+        >
     </iframe>
   </div>
-
- 
+  </div>
 
   <div class="cross-layout">
     <button id="btn-camera-top" class="cross-layout-position-top btn cross-key-btn">▲</button>
@@ -42,6 +43,8 @@
   <br/>
   <button id="btn-move-index" class="btn buttonex" onclick="location.href='index.html'">GoToIndex</button>
   <button id="btn-stop-motion" class="btn buttonex" onclick="location.href='cgi-bin/nph-stop-motion.py'" >MotionStop</button>
+
+
 
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>

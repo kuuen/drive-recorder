@@ -20,7 +20,7 @@ def oldmotionDel():
   # ファイル一覧取得
   files = glob.glob(dataDir)
 
-  if len(files) < 5:
+  if len(files) < 50:
     return
 
   # ファイル名、サイズ、日付からなるリストを作る
@@ -33,7 +33,7 @@ def oldmotionDel():
   # 日付を古い順に並び替える
   lst = sorted(file_lst,key=itemgetter(2), reverse = False)
 
-  i = len(files) - 5
+  i = len(files) - 50
   # 古いファイルを削除していく
   # 4つ以降古いやつは削除する
   for file in lst:
