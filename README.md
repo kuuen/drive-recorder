@@ -1,8 +1,9 @@
-# drive-recorder
+# drive-recorderらか監視カメラに変更
 
 ## Description 説明  
 2011年製webカメラを車載カメラとして使用するプロジェクト  
 Project to use web camera released in 2011 as in-vehicle camera
+だったけどこのブランチで管理カメラにする。motionで監視、ファイルを定期的にgoogle draiveに保存する
 
 衝動買いしたが使用していないパーツで実装したので性能はあまり良くない  
 There is no performance because it was Impulse buying by parts purchased dynamically and not used
