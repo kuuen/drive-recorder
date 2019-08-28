@@ -1,4 +1,4 @@
-# drive-recorderらか監視カメラに変更
+# drive-recorderから監視カメラに変更
 
 ## Description 説明  
 2011年製webカメラを車載カメラとして使用するプロジェクト  
