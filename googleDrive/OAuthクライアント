@@ -1,0 +1,26 @@
+OAuth クライアント
+クライアントID
+254906633171-5tqi9ds8mf3o8qkdl1iis9lsgrk57fm1.apps.googleusercontent.com
+
+クライアントシークレット
+bckZEkr-Mh7Qydu1Nlx1F-Xq
+
+認証コード毎回変わるか？
+4/qQFopyvCb8GxkW6mRI9U-YeKRk86dzWX-la_2IVjx2L7ysIXHzrl1xw
+
+
+
+settings.yaml　「:」の後には半角スペースを必ず入れないといけなかったりする
+
+client_config_backend:　settings
+client_config:
+　client_id:　254906633171-5tqi9ds8mf3o8qkdl1iis9lsgrk57fm1.apps.googleusercontent.com
+　client_secret:　bckZEkr-Mh7Qydu1Nlx1F-Xq
+
+save_credentials:　True
+save_credentials_backend: file
+save_credentials_file: credentials.json
+get_refresh_token: True
+oauth_scope:
+  - https://www.googleapis.com/auth/drive.file
+  - https://www.googleapis.com/auth/drive.install
