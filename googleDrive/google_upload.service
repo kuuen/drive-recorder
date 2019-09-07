@@ -1,0 +1,15 @@
+[Unit]
+Description=Start Drive Reorder
+After=local-fs.target
+
+[Service]
+
+EnvironmentFile=/home/pi/work/DriveRecoder/googleDrive/environmentFile.txt
+
+ExecStart=/home/pi/work/DriveRecoder/googleDrive/google_upload.sh
+Restart = always
+Type=simple
+User=pi
+
+[Install]
+WantedBy=multi-user.target

@@ -34,7 +34,8 @@ print('size= ' + str(size))
 
 # 動画ファイルフォルダが10GBを超えている場合は、そのサイズになるまでファイルを削除
 for f in dsp_list:
-  if size > 1000000000:
+#  if size > 1000000000:
+  if size > 30000000:
     break
 
   # ファイルを特定

@@ -1,0 +1,3 @@
+GOOLE_UPLOAD_HOME=/home/pi/work/DriveRecoder/googleDrive/
+MOVE_PATH=/media/data/driveRecoder/
+_EOF_
