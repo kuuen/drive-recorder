@@ -76,13 +76,14 @@ def uploadFile(fileName):
 
   # 動画ファイルフォルダが10GBを超えている場合は、そのサイズになるまでファイルを削除
   for f in dsp_list:
-  #  if size  1000000000:
-    if size < 30000000:
+    if size < 10000000000:
       break
 
     # ファイルを特定
     f = drive.CreateFile({'id': f['id']})
     size = size - int(f['fileSize'])
+
+    logger.debug("google drive Delete: " + f['title'])
     # gooleDriveを削除する。ゴミ箱にも入らない。ゴミ箱に移動はf.Trash() ゴミ箱から戻すにはf.UnTrash()
     f.Delete()
 
@@ -108,6 +109,8 @@ def uploads():
   dataDir = os.environ['MOVE_PATH'] + '*.avi'
   files = glob.glob(dataDir)
   
+  logger.debug("local files: " + str(len(files)))
+
   if len(files) < 1:
     return
 
@@ -151,26 +154,7 @@ callMotionFile = ""
 #   その際googleDriveの容量確認して規定量を超えていたら古いファイルから削除していく
 
 
-"""
-parser = argparse.ArgumentParser()
-parser.add_argument('-t', '--terget', help='対象ファイルをフルパスで指定' ,required=False)
 
-args = parser.parse_args()
-if args.terget != None:
-
-  logger.debug('引数:')
-  logger.debug(args.terget)
-
-  uploadFile(args.terget)
-
-else:
-
-  # motionからtcp通信で受ける。
-  with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.bind(('127.0.0.1', 3321))
-    s.listen(1)
-
-"""
 
 uploads()
 
