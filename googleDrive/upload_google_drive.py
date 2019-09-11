@@ -13,7 +13,7 @@ from logging import getLogger, StreamHandler, FileHandler ,DEBUG, INFO, ERROR, F
 from logging.handlers import TimedRotatingFileHandler
 
 # ログファイルに設定
-logFileName = '/var/log/drive_recoder/uploadlog.txt'
+logFileName = '/var/log/kanshi_camera/upload_log.txt'
 
 # ログの出力レベル
 logLevel = DEBUG
@@ -72,7 +72,7 @@ def uploadFile(fileName):
     print(f['title'], ' \t', f['id'], ' \t', f['createdDate'], ' \t', f['fileSize'])
     size = size + int(f['fileSize'])
 
-  logger.debug('upload total size= ' + str(size))
+  logger.debug('upload total size= ' + str(size / 1000000) + "MB")
 
   # 動画ファイルフォルダが10GBを超えている場合は、そのサイズになるまでファイルを削除
   for f in dsp_list:
@@ -86,8 +86,7 @@ def uploadFile(fileName):
     logger.debug("google drive Delete: " + f['title'])
     # gooleDriveを削除する。ゴミ箱にも入らない。ゴミ箱に移動はf.Trash() ゴミ箱から戻すにはf.UnTrash()
     f.Delete()
-
-  logger.debug('upload total size(整理後)= ' + str(size))
+    logger.debug('upload total size(整理後)= ' + str(size / 1000000) + "MB")
 
   # ロード処理
   f = drive.CreateFile({"parents": [{"id": folder_id}]})
