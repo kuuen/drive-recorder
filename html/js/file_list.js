@@ -17,10 +17,17 @@ function init() {
     function (data) {
       console.log(data);
       console.log(data.screenurl);
+
+      for(var i in data.list) {
+        $('#content').append(data.list[i].name + "<br />")
+      }
+
+
       $("#frameScreen").attr("src", data.screenurl);
+
     },
     // 2つめは通信失敗時のコールバック
-    function () {
+    function (XMLHttpRequest, textStatus, errorThrown) {
       alert("読み込み失敗");
   });
 
