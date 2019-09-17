@@ -7,6 +7,7 @@ import pprint
 import socket
 import glob
 import time
+import json
 from operator import itemgetter
 
 from logging import getLogger, StreamHandler, FileHandler ,DEBUG, INFO, ERROR, Formatter
@@ -45,7 +46,7 @@ logger.propagate = False
 # カレントディレクトリの変更
 os.chdir(os.environ['GOOLE_UPLOAD_HOME']) 
 
-
+# 1つのメソッドでいろんなことをしてるから処理を分割する
 def uploadFile(fileName):
 
   # OAuth
@@ -74,6 +75,9 @@ def uploadFile(fileName):
 
   logger.debug('upload total size= ' + str(size / 1000000) + "MB")
 
+  # 削除ファイルリスト
+  delFileList = []
+
   # 動画ファイルフォルダが10GBを超えている場合は、そのサイズになるまでファイルを削除
   for f in dsp_list:
     if size < 10000000000:
@@ -86,7 +90,34 @@ def uploadFile(fileName):
     logger.debug("google drive Delete: " + f['title'])
     # gooleDriveを削除する。ゴミ箱にも入らない。ゴミ箱に移動はf.Trash() ゴミ箱から戻すにはf.UnTrash()
     f.Delete()
+    delFileList.append(f)
     logger.debug('upload total size(整理後)= ' + str(size / 1000000) + "MB")
+
+  # 削除したファイルがあればリストから除外する
+  for f in delFileList:
+    dsp_list.remove(f)
+
+
+  # 作成日付の降順で並び替え
+#  json_list = sorted(dsp_list, key=lambda x:x['createdDate'], reverse = True)
+
+  json_write_list = []
+  for f in dsp_list:
+  #  print(f['title'], ' \t', f['id'], ' \t', f['createdDate'], ' \t', f['fileSize'], ' \t', f['alternateLink'])
+    ary = {}
+    ary['name'] = f['title']
+    ary['link'] = f['alternateLink']
+    ary['createdDate'] = f['createdDate']
+    json_write_list.append(ary)
+
+
+  json_data = { 'list': json_write_list  }
+
+#  json.JSONEncoder().encode(json_data)
+
+  with open(os.environ['MOVE_PATH'] + "google_file_list.json", 'w') as f:
+    json.dump(json_data, f)
+
 
   # ロード処理
   f = drive.CreateFile({"parents": [{"id": folder_id}]})
@@ -105,7 +136,7 @@ def uploadFile(fileName):
 
 # アップロードしそこねたファイルを上げる
 def uploads():
-  dataDir = os.environ['MOVE_PATH'] + '*.avi'
+  dataDir = os.environ['MOVE_PATH'] + '*.mp4'
   files = glob.glob(dataDir)
   
   logger.debug("local files: " + str(len(files)))
@@ -123,8 +154,7 @@ def uploads():
   lst = sorted(file_lst,key=itemgetter(2), reverse = False)
 
   i = len(files) - 1
-  # 古いファイルを削除していく
-  # 4つ以降古いやつは削除する
+  # 1つだけ残してアップロード。最新は作成中ファイルだったりするため
   for file in lst:
     if i < 1 :
       break;
