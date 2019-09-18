@@ -12,6 +12,8 @@ from operator import itemgetter
 
 from logging import getLogger, StreamHandler, FileHandler ,DEBUG, INFO, ERROR, Formatter
 from logging.handlers import TimedRotatingFileHandler
+from datetime import datetime as dt
+import datetime
 
 # ログファイルに設定
 logFileName = '/var/log/kanshi_camera/upload_log.txt'
@@ -103,13 +105,15 @@ def uploadFile(fileName):
 
   json_write_list = []
   for f in dsp_list:
+    if f['title'][len(f['title']) - 4:] != ".mp4" :
+      continue
+
   #  print(f['title'], ' \t', f['id'], ' \t', f['createdDate'], ' \t', f['fileSize'], ' \t', f['alternateLink'])
     ary = {}
-    ary['name'] = f['title']
+    ary['name'] = str(datetime.datetime.strptime(f['title'][3:-4], '%Y%m%d%H%M%S'))
     ary['link'] = f['alternateLink']
     ary['createdDate'] = f['createdDate']
     json_write_list.append(ary)
-
 
   json_data = { 'list': json_write_list  }
 
