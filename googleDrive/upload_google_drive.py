@@ -51,77 +51,9 @@ os.chdir(os.environ['GOOLE_UPLOAD_HOME'])
 # 1つのメソッドでいろんなことをしてるから処理を分割する
 def uploadFile(fileName):
 
-  # OAuth
-
-  logger.debug("Auth start: " + datetime.datetime.now().strftime("%H:%M:%S"))
-  gauth = GoogleAuth()
-  gauth.CommandLineAuth()
-  drive = GoogleDrive(gauth)
-  logger.debug("Auth end: " + datetime.datetime.now().strftime("%H:%M:%S"))
-
   # 保存先フォルダを指定する　何故かブラウザから作成したフォルダが取得できない
   # google drive api で作成したフォルダには保存ができる
   folder_id = drive.ListFile({'q': 'title = "kanshi"'}).GetList()[0]['id']
-
-  # gooeleDriveにあるファイルリストを取得。サブフォルダは見ない
-  file_list = drive.ListFile({'q': '"{}" in parents and trashed = false'.format(folder_id)}).GetList()
-
-  # 作成日付の昇順で並び替え
-  dsp_list = sorted(file_list, key=lambda x:x['createdDate'])
-
-  # 容量を確認
-  size = 0
-  for f in dsp_list:
-    print(f['title'], ' \t', f['id'], ' \t', f['createdDate'], ' \t', f['fileSize'])
-    size = size + int(f['fileSize'])
-
-  logger.debug('upload total size= ' + str(size / 1000000) + "MB")
-
-  # 削除ファイルリスト
-  delFileList = []
-
-  # 動画ファイルフォルダが10GBを超えている場合は、そのサイズになるまでファイルを削除
-  for f in dsp_list:
-    if size < 10000000000:
-      break
-
-    # ファイルを特定
-    f = drive.CreateFile({'id': f['id']})
-    size = size - int(f['fileSize'])
-
-    logger.debug("google drive Delete: " + f['title'])
-    # gooleDriveを削除する。ゴミ箱にも入らない。ゴミ箱に移動はf.Trash() ゴミ箱から戻すにはf.UnTrash()
-    f.Delete()
-    delFileList.append(f)
-    logger.debug('upload total size(整理後)= ' + str(size / 1000000) + "MB")
-
-  # 削除したファイルがあればリストから除外する
-  for f in delFileList:
-    dsp_list.remove(f)
-
-
-  # 作成日付の降順で並び替え
-#  json_list = sorted(dsp_list, key=lambda x:x['createdDate'], reverse = True)
-
-  json_write_list = []
-  for f in dsp_list:
-    if f['title'][len(f['title']) - 4:] != ".mp4" :
-      continue
-
-  #  print(f['title'], ' \t', f['id'], ' \t', f['createdDate'], ' \t', f['fileSize'], ' \t', f['alternateLink'])
-    ary = {}
-    ary['name'] = str(datetime.datetime.strptime(f['title'][3:-4], '%Y%m%d%H%M%S'))
-    ary['link'] = f['alternateLink']
-    ary['createdDate'] = f['createdDate']
-    json_write_list.append(ary)
-
-  json_data = { 'list': json_write_list  }
-
-#  json.JSONEncoder().encode(json_data)
-
-  with open(os.environ['MOVE_PATH'] + "google_file_list.json", 'w') as f:
-    json.dump(json_data, f)
-
 
   # ロード処理
   f = drive.CreateFile({"parents": [{"id": folder_id}]})
@@ -152,10 +84,13 @@ def uploads():
   for file in files:
     file = os.path.join(dataDir, file)
     #print file,os.stat(file).st_size,time.ctime(os.stat(file).st_mtime)
-    file_lst.append([file,os.stat(file).st_size,time.ctime(os.stat(file).st_mtime)])
+    #file_lst.append([file, os.stat(file).st_size, time.ctime(os.stat(file).st_mtime)])
+    file_lst.append([file, os.stat(file).st_size, os.stat(file).st_mtime])
 
   # 日付を古い順に並び替える
-  lst = sorted(file_lst,key=itemgetter(2), reverse = False)
+  lst = sorted(file_lst, key = itemgetter(2), reverse = False)
+
+  print(lst);
 
   i = len(files) - 1
   # 1つだけ残してアップロード。最新は作成中ファイルだったりするため
@@ -167,15 +102,74 @@ def uploads():
     logger.debug(file[0])
     i -= 1 
 
+def createFileList():
 
-# importに10秒がかかる
-logger.debug("import start: " + datetime.datetime.now().strftime("%H:%M:%S"))
-from pydrive.auth import GoogleAuth
-from pydrive.drive import GoogleDrive
-logger.debug("import end: " + datetime.datetime.now().strftime("%H:%M:%S"))
+  # 保存先フォルダを指定する　何故かブラウザから作成したフォルダが取得できない
+  # google drive api で作成したフォルダには保存ができる
+  folder_id = drive.ListFile({'q': 'title = "kanshi"'}).GetList()[0]['id']
+
+  # gooeleDriveにあるファイルリストを取得。サブフォルダは見ない
+  file_list = drive.ListFile({'q': '"{}" in parents and trashed = false'.format(folder_id)}).GetList()
+
+  # 容量を確認
+  size = 0
+  for f in file_list:
+    print(f['title'], ' \t', f['id'], ' \t', f['createdDate'], ' \t', f['fileSize'])
+    size = size + int(f['fileSize'])
+
+  logger.debug('upload total size= ' + str(size / 1000000) + "MB")
+
+  # 削除ファイルリスト
+  delFileList = []
+
+  if size > 10000000000:
+
+    # 作成日付の昇順で並び替え
+    dsp_list = sorted(file_list, key=lambda x:x['createdDate'])
+
+    # 動画ファイルフォルダが10GBを超えている場合は、そのサイズになるまでファイルを削除
+    for f in dsp_list:
+      if size < 10000000000:
+        break
+
+      # ファイルを特定
+      f = drive.CreateFile({'id': f['id']})
+      size = size - int(f['fileSize'])
+
+      logger.debug("google drive Delete: " + f['title'])
+      # gooleDriveを削除する。ゴミ箱にも入らない。ゴミ箱に移動はf.Trash() ゴミ箱から戻すにはf.UnTrash()
+      f.Delete()
+      delFileList.append(f)
+      logger.debug('upload total size(整理後)= ' + str(size / 1000000) + "MB")
+  else :
+    dsp_list = file_list
+
+  # 削除したファイルがあればリストから除外する
+  for f in delFileList:
+    dsp_list.remove(f)
 
 
-callMotionFile = ""
+  # 作成日付の降順で並び替え
+  #  json_list = sorted(dsp_list, key=lambda x:x['createdDate'], reverse = True)
+
+  json_write_list = []
+  for f in dsp_list:
+    if f['title'][len(f['title']) - 4:] != ".mp4" :
+      continue
+
+  #  print(f['title'], ' \t', f['id'], ' \t', f['createdDate'], ' \t', f['fileSize'], ' \t', f['alternateLink'])
+    ary = {}
+    ary['name'] = str(datetime.datetime.strptime(f['title'][3:-4], '%Y%m%d%H%M%S'))
+    ary['link'] = f['alternateLink']
+    ary['createdDate'] = f['createdDate']
+    json_write_list.append(ary)
+
+  json_data = { 'list': json_write_list  }
+
+  #  json.JSONEncoder().encode(json_data)
+
+  with open(os.environ['MOVE_PATH'] + "google_file_list.json", 'w') as f:
+    json.dump(json_data, f)
 
 # ★ここから
 
@@ -186,10 +180,21 @@ callMotionFile = ""
 # 2.１とは別のスレッドで動作 動画保存ディレクトリ確認。動画が2以上ある場合は、googleDriveにアップロードする
 #   その際googleDriveの容量確認して規定量を超えていたら古いファイルから削除していく
 
+# importに10秒がかかる
+logger.debug("import start: " + datetime.datetime.now().strftime("%H:%M:%S"))
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
+logger.debug("import end: " + datetime.datetime.now().strftime("%H:%M:%S"))
 
-
+# OAuth
+logger.debug("Auth start: " + datetime.datetime.now().strftime("%H:%M:%S"))
+gauth = GoogleAuth()
+gauth.CommandLineAuth()
+drive = GoogleDrive(gauth)
+logger.debug("Auth end: " + datetime.datetime.now().strftime("%H:%M:%S"))
 
 uploads()
+createFileList()
 
 logger.debug("tcp listen start " + datetime.datetime.now().strftime("%H:%M:%S"))
 
