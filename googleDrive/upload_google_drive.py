@@ -30,7 +30,7 @@ handler_format = Formatter('%(asctime)s - %(levelname)s - %(message)s')
 # StreamHandlerはprint()と同じ働きではない。実行環境によってsyslogや
 # コンソールに出力されることはあっても現状ではhttpのレスポンスに流せるない
 handler = StreamHandler()
-handler.setLevel(logLevel)
+handler.setLevel(INFO)
 handler.setFormatter(handler_format)
 
 trfh = TimedRotatingFileHandler(
@@ -102,7 +102,7 @@ def uploads():
   # 日付を古い順に並び替える
   lst = sorted(file_lst, key = itemgetter(2), reverse = False)
 
-  print(lst);
+  #print(lst);
 
   i = len(files) - 1
   # 1つだけ残してアップロード。最新は作成中ファイルだったりするため
@@ -126,7 +126,7 @@ def createFileList():
   # 容量を確認
   size = 0
   for f in file_list:
-    print(f['title'], ' \t', f['id'], ' \t', f['createdDate'], ' \t', f['fileSize'])
+    #print(f['title'], ' \t', f['id'], ' \t', f['createdDate'], ' \t', f['fileSize'])
     size = size + int(f['fileSize'])
 
   logger.debug('upload total size= ' + str(size / 1000000) + "MB")
