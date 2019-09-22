@@ -15,6 +15,8 @@ from logging.handlers import TimedRotatingFileHandler
 from datetime import datetime as dt
 import datetime
 
+
+
 # ログファイルに設定
 logFileName = '/var/log/kanshi_camera/upload_log.txt'
 
@@ -60,15 +62,25 @@ def uploadFile(fileName):
   f.SetContentFile(fileName)
   f['title'] = os.path.basename(fileName)
 
-  logger.debug("upload start: " + datetime.datetime.now().strftime("%H:%M:%S"))
-  f.Upload()
-  logger.debug("upload end: " + datetime.datetime.now().strftime("%H:%M:%S"))
 
-  print(type(f['parents']))
-  pprint.pprint(f['parents'])
+  try :
+    # エラーになることがあった。0サイズのファイルがありそこでコケる
+    logger.debug("upload start: " + datetime.datetime.now().strftime("%H:%M:%S"))
+    f.Upload()
+    logger.debug("upload end: " + datetime.datetime.now().strftime("%H:%M:%S"))
 
-  # アップしたファイルはローカルから削除する
-  os.remove(fileName)
+#    print(type(f['parents']))
+#    pprint.pprint(f['parents'])
+
+    # アップしたファイルはローカルから削除する
+    os.remove(fileName)
+
+  except ApiRequestError as e:
+    # エラーしたことをマークする
+    os.rename(fileName, fileName + ".error")
+    import traceback
+    logger.error("ApiRequestError")
+
 
 # アップロードしそこねたファイルを上げる
 def uploads():
@@ -162,6 +174,7 @@ def createFileList():
     ary['name'] = str(datetime.datetime.strptime(f['title'][3:-4], '%Y%m%d%H%M%S'))
     ary['link'] = f['alternateLink']
     ary['createdDate'] = f['createdDate']
+    ary['storage_location'] = 'c'
     json_write_list.append(ary)
 
   json_data = { 'list': json_write_list  }
@@ -184,6 +197,7 @@ def createFileList():
 logger.debug("import start: " + datetime.datetime.now().strftime("%H:%M:%S"))
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
+from pydrive.files import ApiRequestError, GoogleDriveFile
 logger.debug("import end: " + datetime.datetime.now().strftime("%H:%M:%S"))
 
 # OAuth

@@ -20,7 +20,7 @@ function init() {
 
       for(var i in data.list) {
         if (data.list[i].link != 'non link') {
-          $('#content').append("<a href='" + data.list[i].link + "'>" + data.list[i].name + "</a><br />")
+          $('#content').append("<a href='" + data.list[i].link + "'>" + data.list[i].name + "</a>&nbsp;&nbsp;" + data.list[i].storage_location +"<br />")
 //          $('#content').append("<video src='" + data.list[i].link + "'></video><br/>")
 
         } else {
