@@ -121,7 +121,15 @@ def createFileList():
   folder_id = drive.ListFile({'q': 'title = "kanshi"'}).GetList()[0]['id']
 
   # gooeleDriveにあるファイルリストを取得。サブフォルダは見ない
-  file_list = drive.ListFile({'q': '"{}" in parents and trashed = false'.format(folder_id)}).GetList()
+#  file_list = drive.ListFile({'q': '"{}" in parents and trashed = false'.format(folder_id)}).GetList()
+
+  file_list = []
+  query = "'{}' in parents and trashed=false".format(folder_id)
+  for i, list in enumerate(  drive.ListFile({'q': query, 'maxResults': 50}) )  :
+    for file in list:
+      # print(file['title'])
+      file_list.append(file)
+
 
   # 容量を確認
   size = 0
@@ -171,11 +179,16 @@ def createFileList():
 
   #  print(f['title'], ' \t', f['id'], ' \t', f['createdDate'], ' \t', f['fileSize'], ' \t', f['alternateLink'])
     ary = {}
-    ary['name'] = str(datetime.datetime.strptime(f['title'][3:-4], '%Y%m%d%H%M%S'))
+
+    #print(f['title'])
+
+    ary['name'] = str(datetime.datetime.strptime(f['title'][-18:-4], '%Y%m%d%H%M%S'))
     ary['link'] = f['alternateLink']
     ary['createdDate'] = f['createdDate']
     ary['storage_location'] = 'c'
     json_write_list.append(ary)
+
+    # print(f['title']  + ' '  + ary['name'] )
 
   json_data = { 'list': json_write_list  }
 
