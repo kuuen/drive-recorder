@@ -44,7 +44,7 @@ for file in lst:
 
   fileName = os.path.basename(file[0])
   ary['link'] = '../drive/' + fileName
-  ary['name'] = str(datetime.datetime.strptime(fileName[3:-4], '%Y%m%d%H%M%S'))
+  ary['name'] = str(datetime.datetime.strptime(fileName[-18:-4], '%Y%m%d%H%M%S'))
   ary['storage_location'] = 'l'
 
 

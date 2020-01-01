@@ -10,6 +10,7 @@ function init() {
     type: 'POST',
     url: 'cgi-bin/file_list.py',
     contentType: 'application/json',
+//    timeout: 10000000
 //    data: json,
 
   }).then(
